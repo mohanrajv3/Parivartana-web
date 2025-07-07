@@ -3,8 +3,8 @@ import react from "@vitejs/plugin-react";
 import path from "path";
 import runtimeErrorOverlay from "@replit/vite-plugin-runtime-error-modal";
 
-// Load GitHub Pages base path
-const repoName = "parivartana-marketplace"; // <-- 🔁 Replace with your repo name
+// GitHub Pages repo name
+const repoName = "Parivartana-web";
 
 export default defineConfig(async () => {
   const plugins = [react(), runtimeErrorOverlay()];
@@ -18,23 +18,23 @@ export default defineConfig(async () => {
   }
 
   return {
-    base: `/${repoName}/`, // 👈 Required for GitHub Pages deployment
+    base: `/${repoName}/`, // 👈 Required for GitHub Pages
 
     plugins,
 
     resolve: {
       alias: {
-        "@": path.resolve(import.meta.dirname, "client", "src"),
-        "@shared": path.resolve(import.meta.dirname, "shared"),
-        "@assets": path.resolve(import.meta.dirname, "attached_assets"),
+        "@": path.resolve(__dirname, "src"),               // React frontend files
+        "@shared": path.resolve(__dirname, "shared"),       // Shared types/schemas
+        "@assets": path.resolve(__dirname, "attached_assets") // Static/media files
       },
     },
 
-    root: path.resolve(import.meta.dirname, "client"),
+    root: ".", // Root of monorepo project
 
     build: {
-      outDir: path.resolve(import.meta.dirname, "dist/public"),
-      emptyOutDir: true,
+      outDir: "dist",         // Output to dist/
+      emptyOutDir: true,      // Clean before building
     },
   };
 });
